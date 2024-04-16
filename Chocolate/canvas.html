@@ -1,0 +1,300 @@
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<title>Chocolate</title>
+			<style type="text/css">
+.inline-div {
+    display:inline-block;
+}
+.inline-txtarea {
+    resize: none;
+    border : 2px solid red;
+    height:125px;
+}
+			</style>
+	</head>
+	<script>
+
+		function fillText(text, x, y, color, canvasId, CN, XC, YC) {
+
+			x = x * CN + XC;
+			y = YC - y * CN;
+
+			var c = document.getElementById(canvasId);
+			var ctx = c.getContext("2d");
+			ctx.font = "18px serif";
+			ctx.fillText(text, x, y);
+		}
+	
+		function drawLine(x1, y1, x2, y2, color, canvasId, CN, XC, YC) {
+
+			x1 = x1 * CN + XC;
+			y1 = YC - y1 * CN;
+
+			x2 = x2 * CN + XC;
+			y2 = YC - y2 * CN;
+
+			var c = document.getElementById(canvasId);
+			var ctx = c.getContext("2d");
+			ctx.beginPath();
+			ctx.moveTo(x1, y1);
+			ctx.lineTo(x2, y2);
+			ctx.strokeStyle = color;
+			ctx.stroke();
+		}
+		
+		function drawCircle(x, y, r, toFill, color, canvasId, CN, XC, YC, changeRadius) {
+
+			var c = document.getElementById(canvasId);
+			var ctx = c.getContext("2d");
+
+			x = x * CN + XC;
+			y = YC - y * CN;
+			if(changeRadius === true) r = r * CN;
+			
+			ctx.beginPath();
+			ctx.arc(x, y, r, 0, 2 * Math.PI, false);
+			ctx.strokeStyle = color;
+			if(toFill === true) {
+				//ctx.fillStyle = color;
+				//ctx.fill();
+			}
+			ctx.stroke();
+		}
+
+		window.onload = function() {
+
+			CN = 5;
+			YC = 300;
+			XC = 200;
+
+			obj = {
+"points":[
+{
+"x":50,"y":0
+}
+,
+{
+"x":48,"y":14
+}
+,
+{
+"x":48,"y":14
+}
+,
+{
+"x":47,"y":17
+}
+,
+{
+"x":46,"y":19
+}
+,
+{
+"x":45,"y":21
+}
+,
+{
+"x":44,"y":23
+}
+,
+{
+"x":43,"y":25
+}
+,
+{
+"x":42,"y":27
+}
+,
+{
+"x":41,"y":28
+}
+,
+{
+"x":40,"y":30
+}
+,
+{
+"x":39,"y":31
+}
+,
+{
+"x":38,"y":32
+}
+,
+{
+"x":37,"y":33
+}
+,
+{
+"x":36,"y":34
+}
+,
+{
+"x":35,"y":35
+}
+,
+{
+"x":34,"y":36
+}
+,
+{
+"x":33,"y":37
+}
+,
+{
+"x":32,"y":38
+}
+,
+{
+"x":31,"y":39
+}
+,
+{
+"x":30,"y":40
+}
+,
+{
+"x":29,"y":40
+}
+,
+{
+"x":28,"y":41
+}
+,
+{
+"x":27,"y":42
+}
+,
+{
+"x":26,"y":42
+}
+,
+{
+"x":25,"y":43
+}
+,
+{
+"x":26,"y":-42
+}
+,
+{
+"x":27,"y":-42
+}
+,
+{
+"x":28,"y":-41
+}
+,
+{
+"x":29,"y":-40
+}
+,
+{
+"x":30,"y":-40
+}
+,
+{
+"x":31,"y":-39
+}
+,
+{
+"x":32,"y":-38
+}
+,
+{
+"x":33,"y":-37
+}
+,
+{
+"x":34,"y":-36
+}
+,
+{
+"x":35,"y":-35
+}
+,
+{
+"x":36,"y":-34
+}
+,
+{
+"x":37,"y":-33
+}
+,
+{
+"x":38,"y":-32
+}
+,
+{
+"x":39,"y":-31
+}
+,
+{
+"x":40,"y":-30
+}
+,
+{
+"x":41,"y":-28
+}
+,
+{
+"x":42,"y":-27
+}
+,
+{
+"x":43,"y":-25
+}
+,
+{
+"x":44,"y":-23
+}
+,
+{
+"x":45,"y":-21
+}
+,
+{
+"x":46,"y":-19
+}
+,
+{
+"x":47,"y":-17
+}
+,
+{
+"x":48,"y":-14
+}
+,
+{
+"x":49,"y":-9
+}
+],
+"cut":{
+"sx":49.810541249406214,"sy":1.3262112541564877,"fx":25.51228578388691,"fy":-0.5442916303873062
+}
+}
+			;
+
+			colors = ["#EE82EE", "#4B0082", "#0000FF", "#00FF00", "#FFFF00", "#FFA500"];
+
+			for(i = 0; i < obj.points.length; i++) {
+				pointCur = obj.points[i];
+				pointNext = obj.points[(i + 1) % obj.points.length];
+				drawLine(pointCur.x, pointCur.y, pointNext.x, pointNext.y, "#FF0000", "canvas", CN, XC, YC);
+			}
+
+			drawLine(obj.cut.sx, obj.cut.sy, obj.cut.fx, obj.cut.fy, "#00FF00", "canvas", CN, XC, YC);
+			
+		};		
+
+	</script>
+
+	<body>
+		<div class="inline-div">
+			<p align="center"><font size="5" color="black" face="Arial">Chocolate</font></p>
+			<canvas id="canvas" width="1200" height="600" style="border:1px solid #000000;">
+			</canvas>
+		</div>
+	</body>
+</html>

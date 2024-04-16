@@ -1,0 +1,131 @@
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<title>Multishot in the Secret Cow Level</title>
+			<style type="text/css">
+.inline-div {
+    display:inline-block;
+}
+.inline-txtarea {
+    resize: none;
+    border : 2px solid red;
+    height:125px;
+}
+			</style>
+	</head>
+	<script>
+
+		function fillText(text, x, y, color, canvasId, CN, XC, YC) {
+
+			x = x * CN + XC;
+			y = YC - y * CN;
+
+			var c = document.getElementById(canvasId);
+			var ctx = c.getContext("2d");
+			ctx.font = "18px serif";
+			ctx.fillText(text, x, y);
+		}
+	
+		function drawLine(x1, y1, x2, y2, color, canvasId, CN, XC, YC) {
+
+			x1 = x1 * CN + XC;
+			y1 = YC - y1 * CN;
+
+			x2 = x2 * CN + XC;
+			y2 = YC - y2 * CN;
+
+			var c = document.getElementById(canvasId);
+			var ctx = c.getContext("2d");
+			ctx.beginPath();
+			ctx.moveTo(x1, y1);
+			ctx.lineTo(x2, y2);
+			ctx.strokeStyle = color;
+			ctx.stroke();
+		}
+		
+		function drawCircle(x, y, r, toFill, color, canvasId, CN, XC, YC, changeRadius) {
+
+			var c = document.getElementById(canvasId);
+			var ctx = c.getContext("2d");
+
+			x = x * CN + XC;
+			y = YC - y * CN;
+			if(changeRadius === true) r = r * CN;
+			
+			ctx.beginPath();
+			ctx.arc(x, y, r, 0, 2 * Math.PI, false);
+			ctx.strokeStyle = color;
+			if(toFill === true) {
+				//ctx.fillStyle = color;
+				//ctx.fill();
+			}
+			ctx.stroke();
+		}
+
+		window.onload = function() {
+
+			CN = 20;
+			YC = 300;
+			XC = 200;
+
+			obj = 
+{
+"circles":[
+{
+"x":0.0,"y":10.0,"r":1.0
+}
+,
+{
+"x":0.0,"y":-10.0,"r":1.0
+}
+,
+{
+"x":-10.0,"y":0.0,"r":1.0
+}
+,
+{
+"x":10.0,"y":0.0,"r":1.0
+}
+],
+"vectors":[
+{
+"x":-0.3555291901257482,"y":0.9346651780014753
+}
+,{
+"x":-0.8228617791264858,"y":0.7569005829386012
+}
+,{
+"x":-0.589195484626117,"y":0.8457828804700382
+}
+,{
+"x":-0.3555291901257482,"y":0.9346651780014753
+}]}
+
+			;
+
+			colors = ["#EE82EE", "#4B0082", "#0000FF", "#00FF00", "#FFFF00", "#FFA500"];
+
+			drawCircle(0, 0, 2, true, "#0000FF", "canvas", CN, XC, YC, false);
+
+			for(i = 0; i < obj.circles.length; i++) {
+				circle = obj.circles[i];
+				drawCircle(circle.x, circle.y, circle.r, false, "#0000FF", "canvas", CN, XC, YC, true);
+			}
+			
+			for(i = 0; i < obj.vectors.length; i++) {
+				vector = obj.vectors[i];
+				drawLine(0, 0, vector.x * 20, vector.y * 20, "#FF0000", "canvas", CN, XC, YC);
+			}
+			
+		};		
+
+	</script>
+
+	<body>
+		<div class="inline-div">
+			<p align="center"><font size="5" color="black" face="Arial">Multishot in the Secret Cow Level</font></p>
+			<canvas id="canvas" width="1200" height="600" style="border:1px solid #000000;">
+			</canvas>
+		</div>
+	</body>
+</html>

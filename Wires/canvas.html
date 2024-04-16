@@ -1,0 +1,114 @@
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<title>Wires</title>
+			<style type="text/css">
+.inline-div {
+    display:inline-block;
+}
+.inline-txtarea {
+    resize: none;
+    border : 2px solid red;
+    height:125px;
+}
+			</style>
+	</head>
+	<script>
+
+		function fillText(text, x, y, color, canvasId, CN, XC, YC) {
+
+			x = x * CN + XC;
+			y = YC - y * CN;
+
+			var c = document.getElementById(canvasId);
+			var ctx = c.getContext("2d");
+			ctx.font = "18px serif";
+			ctx.fillText(text, x, y);
+		}
+	
+		function drawLine(x1, y1, x2, y2, color, canvasId, CN, XC, YC) {
+
+			x1 = x1 * CN + XC;
+			y1 = YC - y1 * CN;
+
+			x2 = x2 * CN + XC;
+			y2 = YC - y2 * CN;
+
+			var c = document.getElementById(canvasId);
+			var ctx = c.getContext("2d");
+			ctx.beginPath();
+			ctx.moveTo(x1, y1);
+			ctx.lineTo(x2, y2);
+			ctx.strokeStyle = color;
+			ctx.stroke();
+		}
+		
+		function drawCircle(x, y, r, toFill, color, canvasId, CN, XC, YC, changeRadius) {
+
+			var c = document.getElementById(canvasId);
+			var ctx = c.getContext("2d");
+
+			x = x * CN + XC;
+			y = YC - y * CN;
+			if(changeRadius === true) r = r * CN;
+			
+			ctx.beginPath();
+			ctx.arc(x, y, r, 0, 2 * Math.PI, false);
+			ctx.strokeStyle = color;
+			if(toFill === true) {
+				//ctx.fillStyle = color;
+				//ctx.fill();
+			}
+			ctx.stroke();
+		}
+
+		window.onload = function() {
+
+			CN = 50;
+			YC = 700;
+			XC = 400;
+
+			obj = {
+"circles":[
+{"x": 3.0, "y": 5.0, "r": 0.1},
+{"x": 3.391881827885407, "y": 3.1512224497544716, "r": 0.1},
+{"x": 1.0, "y": 1.0, "r": 0.1},
+{"x": 10.0, "y": 1.0, "r": 0.1},
+{"x": 1.0, "y": 10.0, "r": 0.1},
+{"x": 3.0, "y": 5.0, "r": 0.1}]
+,
+"lines":[
+{"x1": 3.391881827885407, "y1": 3.1512224497544716, "x2": 3.0, "y2": 5.0},
+{"x1": 1.0, "y1": 1.0, "x2": 3.391881827885407, "y2": 3.1512224497544716},
+{"x1": 10.0, "y1": 1.0, "x2": 3.391881827885407, "y2": 3.1512224497544716},
+{"x1": 1.0, "y1": 10.0, "x2": 3.0, "y2": 5.0},
+{"x1": 3.0, "y1": 5.0, "x2": 3.0, "y2": 5.0}]
+}
+
+
+;
+
+			colors = ["#EE82EE", "#4B0082", "#0000FF", "#00FF00", "#FFFF00", "#FFA500"];
+			
+			for(i = 0; i < obj.lines.length; i++) {
+				line = obj.lines[i];
+				drawLine(line.x1, line.y1, line.x2, line.y2, "#FF0000", "canvas", CN, XC, YC);
+			}
+			
+			for(i = 0; i < obj.circles.length; i++) {
+				circle = obj.circles[i];
+				drawCircle(circle.x, circle.y, circle.r, true, "#0000FF", "canvas", CN, XC, YC, true);
+			}
+			
+		};		
+
+	</script>
+
+	<body>
+		<div class="inline-div">
+			<p align="center"><font size="5" color="black" face="Arial">Goat in the garden</font></p>
+			<canvas id="canvas" width="1600" height="1000" style="border:1px solid #000000;">
+			</canvas>
+		</div>
+	</body>
+</html>
